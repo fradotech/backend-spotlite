@@ -1,12 +1,12 @@
 import express from "express";
 import { CONFIG } from "./config";
-import { databaseConnect } from "./database/database.connect";
+import { useDatabase } from "./database/database.connect";
 import userRouter from "./src/user.module";
 
 const app = express();
 
 app.use(express.json());
-databaseConnect();
+useDatabase();
 
 app.get("/", (req, res) => res.send("Spotlite book API!"));
 

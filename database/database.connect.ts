@@ -3,7 +3,7 @@ import sequelizeConfig from "./sequelize.config";
 
 export const Models = { User };
 
-export const databaseConnect = async () => {
+export const useDatabase = async () => {
   await sequelizeConfig
     .authenticate()
     .then(() =>

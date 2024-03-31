@@ -1,11 +1,14 @@
+import { ApiQueryRequest } from "../../infrastructure/api.contract";
 import User from "../entities/user.entity";
 import { UserRepository } from "../repositories/user.repository";
 
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async pagination(): Promise<User[]> {
-    return await this.userRepository.pagination();
+  async list(
+    query?: ApiQueryRequest
+  ): Promise<{ rows: User[]; count: number }> {
+    return await this.userRepository.list(query);
   }
 
   async create(data: User): Promise<User> {
@@ -16,9 +19,9 @@ export class UserService {
     return await this.userRepository.findOneById(id);
   }
 
-  async update(id: number, data: User): Promise<boolean> {
+  async update(id: number, data: User): Promise<User | null> {
     await this.userRepository.update(id, data);
-    return this.userRepository.findOneById(id) !== null;
+    return this.userRepository.findOneById(id, true);
   }
 
   async delete(id: number): Promise<number> {

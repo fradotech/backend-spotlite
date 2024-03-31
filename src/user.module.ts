@@ -9,7 +9,7 @@ const userController = new UserController(userService);
 
 const router = express.Router();
 
-router.get("/users", userController.pagination);
+router.get("/users", userController.list);
 router.post("/users", userController.create);
 router.get("/users/:id", userController.read);
 router.put("/users/:id", userController.update);

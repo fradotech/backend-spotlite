@@ -8,6 +8,7 @@ const sequelizeConfig = new Sequelize(
   {
     host: CONFIG.database.host,
     dialect: "postgres",
+    logging: false,
     define: {
       timestamps: true,
       underscored: true,
