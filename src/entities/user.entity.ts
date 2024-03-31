@@ -1,7 +1,12 @@
 import { DataTypes, Model } from "sequelize";
 import sequelizeConfig from "../../database/sequelize.config";
 
-class User extends Model {}
+class User extends Model {
+  id!: number;
+  name!: string;
+  email!: string;
+  password!: string;
+}
 
 User.init(
   {

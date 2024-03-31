@@ -1,8 +1,8 @@
 import { Op } from "sequelize";
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
 import User from "../entities/user.entity";
-import { BadRequestException } from "../../infrastructure/exceptions/BadRequestException";
-import { NotFoundException } from "../../infrastructure/exceptions/NotFoundException";
+import { BadRequestException } from "../../infrastructure/exceptions/bad-request.exception";
+import { NotFoundException } from "../../infrastructure/exceptions/not-found.exception";
 
 export class UserRepository {
   async list(
@@ -21,7 +21,12 @@ export class UserRepository {
     const options = {
       limit: take,
       where: {
-        ...(search && { name: { [Op.like]: `%${search}%` } }),
+        ...(search && {
+          [Op.or]: [
+            { name: { [Op.iLike]: `%${search}%` } },
+            { email: { [Op.iLike]: `%${search}%` } },
+          ],
+        }),
         ...(filterBy && filterValue && { [filterBy]: filterValue }),
       },
     };
@@ -30,7 +35,12 @@ export class UserRepository {
   }
 
   async create(data: User): Promise<User> {
-    return User.create({ ...data });
+    try {
+      await this.validateEmailExist(data.email, true);
+      return await User.create({ ...data });
+    } catch (error: any) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async findOneById(
@@ -50,6 +60,18 @@ export class UserRepository {
   }
 
   async delete(id: number): Promise<number> {
-    return User.destroy({ where: { id } });
+    await this.findOneById(id, true);
+    return await User.destroy({ where: { id } });
+  }
+
+  async validateEmailExist(
+    email: string,
+    isThrowException = false
+  ): Promise<User | null> {
+    const user = await User.findOne({ where: { email } });
+    if (isThrowException && user) {
+      throw new BadRequestException(`Email ${email} already exists`);
+    }
+    return user;
   }
 }

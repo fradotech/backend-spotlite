@@ -1,7 +1,8 @@
-import express from "express";
+import express, { Request, Response, NextFunction } from "express";
 import { CONFIG } from "./config";
 import { useDatabase } from "./database/database.connect";
 import userRouter from "./src/user.module";
+import { ValidationError } from "sequelize";
 
 const app = express();
 

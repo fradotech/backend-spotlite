@@ -16,15 +16,15 @@ export class UserService {
   }
 
   async read(id: number): Promise<User | null> {
-    return await this.userRepository.findOneById(id);
+    return await this.userRepository.findOneById(id, true);
   }
 
   async update(id: number, data: User): Promise<User | null> {
     await this.userRepository.update(id, data);
-    return this.userRepository.findOneById(id, true);
+    return await this.userRepository.findOneById(id, true);
   }
 
   async delete(id: number): Promise<number> {
-    return this.userRepository.delete(id);
+    return await this.userRepository.delete(id);
   }
 }
