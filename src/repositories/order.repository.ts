@@ -5,6 +5,7 @@ import { NotFoundException } from "../../infrastructure/exceptions/not-found.exc
 import { Order } from "../entities/order.entity";
 import { Book } from "../entities/book.entity";
 import { OrderStatusEnum } from "../enums/order.enum";
+import { User } from "../entities/user.entity";
 
 export class OrderRepository {
   async list(
@@ -25,7 +26,10 @@ export class OrderRepository {
       where: {
         ...(filterBy && filterValue && { [filterBy]: filterValue }),
       },
-      include: [{ model: Book, as: "book" }],
+      include: [
+        { model: User, as: "user" },
+        { model: Book, as: "book" },
+      ],
     };
 
     return await Order.findAndCountAll(options);
@@ -41,7 +45,10 @@ export class OrderRepository {
 
   async findOneById(id: number, isThrowException = false): Promise<Order> {
     const data = await Order.findByPk(id, {
-      include: [{ model: Book, as: "book" }],
+      include: [
+        { model: User, as: "user" },
+        { model: Book, as: "book" },
+      ],
     });
     if (isThrowException && !data) {
       throw new NotFoundException(`Order with id ${id} not found`);

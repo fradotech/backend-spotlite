@@ -18,8 +18,6 @@ export class BookRepository {
       );
     }
 
-    console.log("DATA", filterBy, filterValues);
-
     const options = {
       limit: take,
       where: {

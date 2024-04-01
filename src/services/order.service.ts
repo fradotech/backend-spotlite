@@ -27,6 +27,7 @@ export class OrderService {
       this.bookRepository.findOneById(data.bookId, true),
     ]);
 
+    data.userId = user.id;
     data.totalPrice = book.pointPrice * (data.qty ?? 1);
     data.status = OrderStatusEnum.PENDING;
 
