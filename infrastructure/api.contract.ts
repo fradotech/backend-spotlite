@@ -9,9 +9,9 @@ export class ApiQueryRequest {
 
 export class ApiResponse {
   message?: string = "Ok";
-  data: any;
+  data: Record<string, any> | null = null;
 
-  static assign(data: any, message = "Ok") {
+  static assign(data: Record<string, any> | null = null, message = "Ok") {
     const response = new ApiResponse();
 
     response.message = message;
