@@ -1,4 +1,4 @@
-# Deployment
+# Docs
 
 1. You can see project deployment here https://spotlite.onrender.com
 2. You can see API Documentation here https://documenter.getpostman.com/view/21031688/2sA35HWLa4
