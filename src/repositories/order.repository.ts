@@ -10,7 +10,7 @@ export class OrderRepository {
   async list(
     query?: ApiQueryRequest
   ): Promise<{ rows: Order[]; count: number }> {
-    const { take, search, filterBy, filterValue } = query || {};
+    const { take, filterBy, filterValue } = query || {};
 
     if (filterBy && !Object.keys(Order.getAttributes()).includes(filterBy)) {
       throw new BadRequestException(
@@ -23,12 +23,6 @@ export class OrderRepository {
     const options = {
       limit: take,
       where: {
-        ...(search && {
-          [Op.or]: [
-            { name: { [Op.iLike]: `%${search}%` } },
-            { email: { [Op.iLike]: `%${search}%` } },
-          ],
-        }),
         ...(filterBy && filterValue && { [filterBy]: filterValue }),
       },
       include: [{ model: Book, as: "book" }],

@@ -8,7 +8,7 @@ export class BookRepository {
   async list(
     query?: ApiQueryRequest
   ): Promise<{ rows: Book[]; count: number }> {
-    const { take, search, filterBy, filterValue } = query || {};
+    const { take, search, filterBy, filterValue, filterValues } = query || {};
 
     if (filterBy && !Object.keys(Book.getAttributes()).includes(filterBy)) {
       throw new BadRequestException(
@@ -18,16 +18,20 @@ export class BookRepository {
       );
     }
 
+    console.log("DATA", filterBy, filterValues);
+
     const options = {
       limit: take,
       where: {
         ...(search && {
           [Op.or]: [
-            { name: { [Op.iLike]: `%${search}%` } },
-            { email: { [Op.iLike]: `%${search}%` } },
+            { title: { [Op.iLike]: `%${search}%` } },
+            { writerName: { [Op.iLike]: `%${search}%` } },
           ],
         }),
         ...(filterBy && filterValue && { [filterBy]: filterValue }),
+        ...(filterBy &&
+          filterValues && { [filterBy]: { [Op.overlap]: filterValues } }),
       },
     };
 

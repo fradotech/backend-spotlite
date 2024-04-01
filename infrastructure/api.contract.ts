@@ -5,6 +5,7 @@ export class ApiQueryRequest {
   search?: string;
   filterBy?: string;
   filterValue?: string;
+  filterValues?: Array<string>;
 }
 
 export class ApiResponse {
@@ -27,7 +28,7 @@ export class ApiResponse {
         return res.status(200).json(ApiResponse.assign(result));
       } catch (error: any) {
         console.error(error);
-        return res.status(error.status).json(ApiResponse.assign(null, error.message));
+        return res.status(error.status ?? 500).json(ApiResponse.assign(null, error.message));
       }
     };
   };
