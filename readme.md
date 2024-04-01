@@ -2,6 +2,7 @@
 
 1. You can see project deployment here https://spotlite.onrender.com
 2. You can see API Documentation here https://documenter.getpostman.com/view/21031688/2sA35HWLa4
+3. You can see database schema here https://dbdiagram.io/d/spotlite-660a6a7237b7e33fd730d573
 
 # Project Setup
 
