@@ -1,5 +1,6 @@
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
 import { User } from "../entities/user.entity";
+import { UserPointEnum } from "../enums/user.enum";
 import { UserRepository } from "../repositories/user.repository";
 
 export class UserService {
@@ -12,6 +13,7 @@ export class UserService {
   }
 
   async create(data: User): Promise<User> {
+    data.point = UserPointEnum.REGISTER;
     return await this.userRepository.create(data);
   }
 
