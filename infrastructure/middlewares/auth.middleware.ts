@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { CONFIG } from "../../src/config";
 import { User } from "../../src/entities/user.entity";
 
-type Request = express.Request & { user: User };
+export type Request = express.Request & { user: User };
 
 const authMiddleware: express.RequestHandler = (req, res, next) => {
   const request: Request = req as Request;

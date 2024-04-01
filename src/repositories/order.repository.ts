@@ -39,17 +39,14 @@ export class OrderRepository {
     }
   }
 
-  async findOneById(
-    id: number,
-    isThrowException = false
-  ): Promise<Order | null> {
-    const user = await Order.findByPk(id, {
+  async findOneById(id: number, isThrowException = false): Promise<Order> {
+    const data = await Order.findByPk(id, {
       include: [{ model: Book, as: "book" }],
     });
-    if (isThrowException && !user) {
+    if (isThrowException && !data) {
       throw new NotFoundException(`Order with id ${id} not found`);
     }
-    return user;
+    return data || new Order();
   }
 
   async update(id: number, data: Order): Promise<boolean> {

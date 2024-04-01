@@ -5,7 +5,7 @@ import { BookRepository } from "./repositories/book.repository";
 
 export const bookRepository = new BookRepository();
 
-export const bookService = new BookService(bookRepository);
+const bookService = new BookService(bookRepository);
 const bookController = new BookController(bookService);
 
 const router = express.Router();

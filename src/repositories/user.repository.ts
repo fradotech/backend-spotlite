@@ -43,15 +43,12 @@ export class UserRepository {
     }
   }
 
-  async findOneById(
-    id: number,
-    isThrowException = false
-  ): Promise<User | null> {
-    const user = await User.findByPk(id);
-    if (isThrowException && !user) {
+  async findOneById(id: number, isThrowException = false): Promise<User> {
+    const data = await User.findByPk(id);
+    if (isThrowException && !data) {
       throw new NotFoundException(`User with id ${id} not found`);
     }
-    return user;
+    return data || new User();
   }
 
   async update(id: number, data: User): Promise<boolean> {

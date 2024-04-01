@@ -23,8 +23,14 @@ export class UserAuthService {
     }
 
     const payload = { id: user.id, name: user.name, email: user.email };
-    user.dataValues._accessToken = jwt.sign(payload, CONFIG.auth.secret, { expiresIn: "30d" });
+    user.dataValues._accessToken = jwt.sign(payload, CONFIG.auth.secret, {
+      expiresIn: "30d",
+    });
 
     return user;
+  }
+
+  async account(id: number): Promise<User | null> {
+    return await this.userRepository.findOneById(id, true);
   }
 }
