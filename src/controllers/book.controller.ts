@@ -1,7 +1,7 @@
 import { ApiResponse } from "../../infrastructure/api.contract";
 import { Book } from "../entities/book.entity";
 import { BookService } from "../services/book.service";
-import { Request, Response } from "express";
+import { Request } from "express";
 
 export class BookController {
   constructor(private readonly bookService: BookService) {}

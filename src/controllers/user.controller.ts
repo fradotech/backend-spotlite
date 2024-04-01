@@ -1,7 +1,7 @@
 import { ApiResponse } from "../../infrastructure/api.contract";
 import { User } from "../entities/user.entity";
 import { UserService } from "../services/user.service";
-import { Request, Response } from "express";
+import { Request } from "express";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}

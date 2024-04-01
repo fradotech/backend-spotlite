@@ -2,6 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelizeConfig from "../../database/sequelize.config";
 import { BookTagEnum } from "../enums/book.enum";
 import { BadRequestException } from "../../infrastructure/exceptions/bad-request.exception";
+import { Order } from "./order.entity";
 
 export class Book extends Model {
   id!: number;
@@ -49,7 +50,7 @@ Book.init(
           for (const tag of value) {
             if (!validValues.includes(tag)) {
               throw new BadRequestException(
-                `Invalid tag value. Tag value must be one of: ${validValues.join(
+                `Tag value must be one of: ${validValues.join(
                   ", "
                 )}`
               );
@@ -63,4 +64,4 @@ Book.init(
     sequelize: sequelizeConfig,
     tableName: "books",
   }
-);
+)
