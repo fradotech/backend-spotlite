@@ -11,7 +11,7 @@ export const useDatabase = async () => {
   await sequelizeConfig
     .authenticate()
     .then(() =>
-      console.log("Database connection has been established successfully.")
+      console.info("Database connection has been established successfully.")
     )
     .catch((error) =>
       console.error("Unable to connect to the database:", error)
@@ -19,5 +19,5 @@ export const useDatabase = async () => {
 
   await sequelizeConfig
     .sync({ alter: true })
-    .then(() => console.log("Database sync completed"));
+    .then(() => console.info("Database sync completed"));
 };
