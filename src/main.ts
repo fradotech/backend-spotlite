@@ -1,9 +1,9 @@
 import express from "express";
 import { CONFIG } from "./config";
-import { useDatabase } from "./database/database.connect";
-import userRouter from "./src/user.module";
-import bookRouter from "./src/book.module";
-import authMiddleware from "./infrastructure/middlewares/auth.middleware";
+import { useDatabase } from "../database/database.connect";
+import userRouter from "./user.module";
+import bookRouter from "./book.module";
+import authMiddleware from "../infrastructure/middlewares/auth.middleware";
 
 const app = express();
 

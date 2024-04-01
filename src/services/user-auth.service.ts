@@ -1,4 +1,4 @@
-import { CONFIG } from "../../config";
+import { CONFIG } from "../config";
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
 import { UnauthorizedException } from "../../infrastructure/exceptions/unauthorized.exception";
 import { User } from "../entities/user.entity";
