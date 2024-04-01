@@ -6,6 +6,9 @@ class User extends Model {
   name!: string;
   email!: string;
   password!: string;
+  point!: number;
+
+  token?: string;
 }
 
 User.init(
@@ -31,10 +34,14 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    point: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     sequelize: sequelizeConfig,
-    modelName: "User",
     tableName: "users",
   }
 );

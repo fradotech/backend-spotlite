@@ -36,7 +36,7 @@ export class UserRepository {
 
   async create(data: User): Promise<User> {
     try {
-      await this.validateEmailExist(data.email, true);
+      await this.findOneByEmail(data.email, true);
       return await User.create({ ...data });
     } catch (error: any) {
       throw new BadRequestException(error.message);
@@ -64,7 +64,9 @@ export class UserRepository {
     return await User.destroy({ where: { id } });
   }
 
-  async validateEmailExist(
+  // === Utils === \\
+
+  async findOneByEmail(
     email: string,
     isThrowException = false
   ): Promise<User | null> {
@@ -73,5 +75,10 @@ export class UserRepository {
       throw new BadRequestException(`Email ${email} already exists`);
     }
     return user;
+  }
+
+  async updatePoint(id: number, point: number): Promise<boolean> {
+    const [affected] = await User.update({ point }, { where: { id } });
+    return affected > 0;
   }
 }

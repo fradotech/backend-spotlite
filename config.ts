@@ -4,6 +4,9 @@ dotenv.config();
 export const CONFIG = {
     port: process.env.PORT || 3000,
     prefix: process.env.PREFIX || "/api/v1",
+    auth: {
+        secret: 'secret-key',
+    },
     database: {
         host: process.env.DB_HOST || "localhost",
         port: process.env.DB_PORT || 5432,
