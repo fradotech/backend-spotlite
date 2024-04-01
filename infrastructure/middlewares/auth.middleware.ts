@@ -12,6 +12,7 @@ const authMiddleware: express.RequestHandler = (req, res, next) => {
     [
       `${CONFIG.prefix}/users/register`,
       `${CONFIG.prefix}/users/login`,
+      `${CONFIG.prefix}/books`,
     ].includes(request.path)
   ) {
     return next();
