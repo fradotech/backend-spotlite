@@ -7,8 +7,6 @@ export class User extends Model {
   email!: string;
   password!: string;
   point!: number;
-
-  token?: string;
 }
 
 User.init(
