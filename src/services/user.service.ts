@@ -1,5 +1,5 @@
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
-import User from "../entities/user.entity";
+import { User } from "../entities/user.entity";
 import { UserRepository } from "../repositories/user.repository";
 
 export class UserService {

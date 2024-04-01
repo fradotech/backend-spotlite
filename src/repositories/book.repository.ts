@@ -1,19 +1,19 @@
 import { Op } from "sequelize";
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
-import { User } from "../entities/user.entity";
 import { BadRequestException } from "../../infrastructure/exceptions/bad-request.exception";
 import { NotFoundException } from "../../infrastructure/exceptions/not-found.exception";
+import { Book } from "../entities/book.entity";
 
-export class UserRepository {
+export class BookRepository {
   async list(
     query?: ApiQueryRequest
-  ): Promise<{ rows: User[]; count: number }> {
+  ): Promise<{ rows: Book[]; count: number }> {
     const { take, search, filterBy, filterValue } = query || {};
 
-    if (filterBy && !Object.keys(User.getAttributes()).includes(filterBy)) {
+    if (filterBy && !Object.keys(Book.getAttributes()).includes(filterBy)) {
       throw new BadRequestException(
         `Column "${filterBy}" not found. Available columns: ${Object.keys(
-          User.getAttributes()
+          Book.getAttributes()
         ).join(", ")}`
       );
     }
@@ -31,13 +31,12 @@ export class UserRepository {
       },
     };
 
-    return await User.findAndCountAll(options);
+    return await Book.findAndCountAll(options);
   }
 
-  async create(data: User): Promise<User> {
+  async create(data: Book): Promise<Book> {
     try {
-      await this.findOneByEmail(data.email, true);
-      return await User.create({ ...data });
+      return await Book.create({ ...data });
     } catch (error: any) {
       throw new BadRequestException(error.message);
     }
@@ -46,39 +45,23 @@ export class UserRepository {
   async findOneById(
     id: number,
     isThrowException = false
-  ): Promise<User | null> {
-    const user = await User.findByPk(id);
+  ): Promise<Book | null> {
+    const user = await Book.findByPk(id);
     if (isThrowException && !user) {
-      throw new NotFoundException(`User with id ${id} not found`);
+      throw new NotFoundException(`Book with id ${id} not found`);
     }
     return user;
   }
 
-  async update(id: number, data: User): Promise<boolean> {
-    const [affected] = await User.update(data, { where: { id } });
+  async update(id: number, data: Book): Promise<boolean> {
+    const [affected] = await Book.update(data, { where: { id } });
     return affected > 0;
   }
 
   async delete(id: number): Promise<number> {
     await this.findOneById(id, true);
-    return await User.destroy({ where: { id } });
+    return await Book.destroy({ where: { id } });
   }
 
   // === Utils === \\
-
-  async findOneByEmail(
-    email: string,
-    isThrowException = false
-  ): Promise<User | null> {
-    const user = await User.findOne({ where: { email } });
-    if (isThrowException && user) {
-      throw new BadRequestException(`Email ${email} already exists`);
-    }
-    return user;
-  }
-
-  async updatePoint(id: number, point: number): Promise<boolean> {
-    const [affected] = await User.update({ point }, { where: { id } });
-    return affected > 0;
-  }
 }

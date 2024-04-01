@@ -1,7 +1,11 @@
-import User from "../src/entities/user.entity";
+import { Book } from "../src/entities/book.entity";
+import { User } from "../src/entities/user.entity";
 import sequelizeConfig from "./sequelize.config";
 
-export const Models = { User };
+export const Entities = {
+  User: User,
+  Book: Book,
+};
 
 export const useDatabase = async () => {
   await sequelizeConfig
@@ -12,7 +16,6 @@ export const useDatabase = async () => {
     .catch((error) =>
       console.error("Unable to connect to the database:", error)
     );
-
 
   await sequelizeConfig
     .sync({ alter: true })

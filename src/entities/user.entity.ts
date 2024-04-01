@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelizeConfig from "../../database/sequelize.config";
 
-class User extends Model {
+export class User extends Model {
   id!: number;
   name!: string;
   email!: string;
@@ -45,5 +45,3 @@ User.init(
     tableName: "users",
   }
 );
-
-export default User;

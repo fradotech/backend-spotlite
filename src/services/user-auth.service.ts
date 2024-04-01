@@ -1,7 +1,7 @@
 import { CONFIG } from "../../config";
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
 import { UnauthorizedException } from "../../infrastructure/exceptions/unauthorized.exception";
-import User from "../entities/user.entity";
+import { User } from "../entities/user.entity";
 import { UserPointEnum } from "../enums/user.enum";
 import { UserRepository } from "../repositories/user.repository";
 import jwt from "jsonwebtoken";

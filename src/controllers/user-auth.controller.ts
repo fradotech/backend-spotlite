@@ -1,5 +1,5 @@
 import { ApiResponse } from "../../infrastructure/api.contract";
-import User from "../entities/user.entity";
+import { User } from "../entities/user.entity";
 import { UserAuthService } from "../services/user-auth.service";
 import { Request } from "express";
 

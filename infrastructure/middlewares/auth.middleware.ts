@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { CONFIG } from "../../config";
-import User from "../../src/entities/user.entity";
+import { User } from "../../src/entities/user.entity";
 
 type Request = express.Request & { user: User };
 
