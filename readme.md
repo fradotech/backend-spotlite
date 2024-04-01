@@ -1,3 +1,8 @@
+# Deployment
+
+1. You can see project deployment here https://spotlite-backend-frado.vercel.app
+2. You can see API Documentation here https://documenter.getpostman.com/view/21031688/2sA35HWLa4
+
 # Project Setup
 
 ## A. Environment Setup
@@ -19,7 +24,7 @@ This project has several scripts predefined in `package.json`:
 
 4. **Start:prod**: After building the application, you can run it in production mode with `npm run start:prod`. This will execute `ts-node dist/src/index.js`, running the built version of your application.
 
-## C. API Documentation
+# C. API Documentation
 
 The API documentation provides detailed information about the endpoints, request parameters, and response formats for our service. It is an essential resource for understanding how to interact with our API effectively.
 
