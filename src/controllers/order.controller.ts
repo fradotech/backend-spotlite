@@ -25,4 +25,8 @@ export class OrderController {
   delete = ApiResponse.tryCatch(async (req: Request): Promise<number> => {
     return await this.orderService.delete(+req.params.id);
   });
+
+  updateStatus = ApiResponse.tryCatch(async (req: Request): Promise<Order | null> => {
+    return await this.orderService.updateStatus(+req.params.id, req.body);
+  });
 }

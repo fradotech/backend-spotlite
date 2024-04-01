@@ -4,6 +4,7 @@ import { BadRequestException } from "../../infrastructure/exceptions/bad-request
 import { NotFoundException } from "../../infrastructure/exceptions/not-found.exception";
 import { Order } from "../entities/order.entity";
 import { Book } from "../entities/book.entity";
+import { OrderStatusEnum } from "../enums/order.enum";
 
 export class OrderRepository {
   async list(
@@ -68,4 +69,13 @@ export class OrderRepository {
   }
 
   // === Utils === \\
+
+  async updateStatus(id: number, status: OrderStatusEnum): Promise<boolean> {
+    try {
+      const [affected] = await Order.update({ status }, { where: { id } });
+      return affected > 0;
+    } catch (error: any) {
+      throw new BadRequestException(error.message);
+    }
+  }
 }

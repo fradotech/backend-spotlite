@@ -49,4 +49,9 @@ export class OrderService {
   async delete(id: number): Promise<number> {
     return await this.orderRepository.delete(id);
   }
+
+  async updateStatus(id: number, data: Order): Promise<Order | null> {
+    await this.orderRepository.updateStatus(id, data.status as OrderStatusEnum);
+    return await this.orderRepository.findOneById(id, true);
+  }
 }

@@ -20,4 +20,6 @@ router.get(`/${indexPath}/:id`, orderController.read);
 router.put(`/${indexPath}/:id`, orderController.update);
 router.delete(`/${indexPath}/:id`, orderController.delete);
 
+router.patch(`/${indexPath}/:id/status`, orderController.updateStatus);
+
 export default router;
