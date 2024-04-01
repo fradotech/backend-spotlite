@@ -16,13 +16,12 @@
 
 This project has several scripts predefined in `package.json`:
 
-1. **Start**: To run the application in development mode, use the `npm run start` command. This will execute `ts-node src/index.ts`, running your application using ts-node, which allows you to run TypeScript without needing to compile it first.
+1. **Start**: To run the application in development mode, use the `npm run start` command
 
-2. **Dev**: To run the application in development mode with hot reloading, use the `npm run dev` command. This will execute `nodemon src/index.ts`, running your application using nodemon, which will automatically restart your application whenever there are file changes.
+2. **Dev**: To run the application in development mode with hot reloading, use the `npm run dev` command.
 
-3. **Build**: To build the application for production, use the `npm run build` command. This will execute `tsc`, compiling all your TypeScript files into JavaScript.
-
-4. **Start:prod**: After building the application, you can run it in production mode with `npm run start:prod`. This will execute `ts-node dist/src/index.js`, running the built version of your application.
+3. **Build**: To build the application for production, use the `npm run build` command.
+4. **Start:prod**: After building the application, you can run it in production mode with `npm run start:prod`.
 
 # C. API Documentation
 
