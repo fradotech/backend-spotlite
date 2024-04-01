@@ -22,9 +22,3 @@ This project has several scripts predefined in `package.json`:
 
 3. **Build**: To build the application for production, use the `npm run build` command.
 4. **Start:prod**: After building the application, you can run it in production mode with `npm run start:prod`.
-
-# C. API Documentation
-
-The API documentation provides detailed information about the endpoints, request parameters, and response formats for our service. It is an essential resource for understanding how to interact with our API effectively.
-
-You can access the API documentation at the following link: [API Documentation](https://documenter.getpostman.com/view/21031688/2sA35HWLa4)
