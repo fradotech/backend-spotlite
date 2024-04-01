@@ -2,10 +2,12 @@ import express from "express";
 import { OrderController } from "./controllers/order.controller";
 import { OrderService } from "./services/order.service";
 import { OrderRepository } from "./repositories/order.repository";
+import { BookRepository } from "./repositories/book.repository";
+import { bookRepository } from "./book.module";
 
 const orderRepository = new OrderRepository();
 
-const orderService = new OrderService(orderRepository);
+const orderService = new OrderService(orderRepository, bookRepository);
 const orderController = new OrderController(orderService);
 
 const router = express.Router();

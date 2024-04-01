@@ -3,9 +3,9 @@ import { BookController } from "./controllers/book.controller";
 import { BookService } from "./services/book.service";
 import { BookRepository } from "./repositories/book.repository";
 
-const bookRepository = new BookRepository();
+export const bookRepository = new BookRepository();
 
-const bookService = new BookService(bookRepository);
+export const bookService = new BookService(bookRepository);
 const bookController = new BookController(bookService);
 
 const router = express.Router();

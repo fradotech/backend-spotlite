@@ -3,6 +3,7 @@ import { ApiQueryRequest } from "../../infrastructure/api.contract";
 import { BadRequestException } from "../../infrastructure/exceptions/bad-request.exception";
 import { NotFoundException } from "../../infrastructure/exceptions/not-found.exception";
 import { Order } from "../entities/order.entity";
+import { Book } from "../entities/book.entity";
 
 export class OrderRepository {
   async list(
@@ -29,6 +30,7 @@ export class OrderRepository {
         }),
         ...(filterBy && filterValue && { [filterBy]: filterValue }),
       },
+      include: [{ model: Book, as: "book" }],
     };
 
     return await Order.findAndCountAll(options);
@@ -46,7 +48,9 @@ export class OrderRepository {
     id: number,
     isThrowException = false
   ): Promise<Order | null> {
-    const user = await Order.findByPk(id);
+    const user = await Order.findByPk(id, {
+      include: [{ model: Book, as: "book" }],
+    });
     if (isThrowException && !user) {
       throw new NotFoundException(`Order with id ${id} not found`);
     }

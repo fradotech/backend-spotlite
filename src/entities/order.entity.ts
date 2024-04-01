@@ -6,6 +6,7 @@ import { Book } from "./book.entity";
 // TODO: in real use case, we need orderItems table for multiple books order
 export class Order extends Model {
   id!: number;
+  bookId!: number;
   book!: Book;
   qty!: number;
   totalPrice!: number;
@@ -51,12 +52,23 @@ Order.init(
   }
 );
 
+Order.addHook("afterFind", (orders) => {
+  if (Array.isArray(orders)) {
+    orders.forEach((order) => {
+      order.totalPrice = +order?.totalPrice;
+    });
+  } else {
+    if (!orders) return;
+    (orders as Order).totalPrice = +(orders as Order)?.totalPrice;
+  }
+});
+
 Order.belongsTo(Book, {
-  foreignKey: 'bookId',
-  as: 'book',
+  foreignKey: "bookId",
+  as: "book",
 });
 
 Book.hasMany(Order, {
-  foreignKey: 'bookId',
-  as: 'orders',
+  foreignKey: "bookId",
+  as: "orders",
 });

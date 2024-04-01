@@ -26,6 +26,7 @@ export class ApiResponse {
         const result = await callback(req, res, next);
         return res.status(200).json(ApiResponse.assign(result));
       } catch (error: any) {
+        console.error(error);
         return res.status(error.status).json(ApiResponse.assign(null, error.message));
       }
     };

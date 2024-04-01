@@ -1,9 +1,15 @@
 import { ApiQueryRequest } from "../../infrastructure/api.contract";
+import { Book } from "../entities/book.entity";
 import { Order } from "../entities/order.entity";
+import { OrderStatusEnum } from "../enums/order.enum";
+import { BookRepository } from "../repositories/book.repository";
 import { OrderRepository } from "../repositories/order.repository";
 
 export class OrderService {
-  constructor(private readonly orderRepository: OrderRepository) {}
+  constructor(
+    private readonly orderRepository: OrderRepository,
+    private readonly bookRepository: BookRepository
+  ) {}
 
   async list(
     query?: ApiQueryRequest
@@ -12,6 +18,14 @@ export class OrderService {
   }
 
   async create(data: Order): Promise<Order> {
+    const book = (await this.bookRepository.findOneById(
+      data.bookId,
+      true
+    )) as Book;
+
+    data.totalPrice = book.pointPrice * (data.qty ?? 1);
+    data.status = OrderStatusEnum.PENDING;
+
     return await this.orderRepository.create(data);
   }
 
@@ -20,6 +34,14 @@ export class OrderService {
   }
 
   async update(id: number, data: Order): Promise<Order | null> {
+    const book = (await this.bookRepository.findOneById(
+      data.bookId,
+      true
+    )) as Book;
+
+    data.totalPrice = book.pointPrice * (data.qty ?? 1);
+    data.status = OrderStatusEnum.PENDING;
+    
     await this.orderRepository.update(id, data);
     return await this.orderRepository.findOneById(id, true);
   }
